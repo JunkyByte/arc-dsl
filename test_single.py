@@ -10,6 +10,7 @@ import tests
 import solvers
 
 
+
 def get_data(train=True):
     path = f'../data/{"training" if train else "evaluation"}'
     data = {}
@@ -17,7 +18,6 @@ def get_data(train=True):
         with open(f'{path}/{fn}') as f:
             data[fn.rstrip('.json')] = json.load(f)
     ast = lambda g: tuple(tuple(r) for r in g)
-
     return {
         'train': {k: [{
             'input': ast(e['input']),
@@ -111,14 +111,19 @@ def test_solvers_correctness(data, solvers_module):
                 assert solver(ex['input']) == ex['output']
             n_correct += 1
         except:
+            print(key)
+            from renderer import plot_three_grids
+            plot_three_grids(ex['input'], solver(ex['input']), ex['output'])
             pass
     print(f'{n_correct} out of {n} tasks solved correctly.')
 
 
 def main():
     data = get_data(train=True)
-    run_dsl_tests(dsl, tests)
-    test_solvers_formatting(solvers, dsl)
+    # run_dsl_tests(dsl, tests)
+    # test_solvers_formatting(solvers, dsl)
+    data['train'] = {k: v for k, v in data['train'].items() if k == '39e1d7f9'}
+    data['test'] = {k: v for k, v in data['test'].items() if k == '39e1d7f9'}
     test_solvers_correctness(data, solvers)
 
 
