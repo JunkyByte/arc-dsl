@@ -1,6 +1,19 @@
 from arc_types import *
 
 
+# Added special functions
+def SAVE(x):
+    raise NotImplementedError
+
+
+def ARGFUNC1(x, y):
+    raise NotImplementedError
+
+
+def ARGFUNC2(x, y, z):
+    raise NotImplementedError
+
+
 def identity(
     x: Any
 ) -> Any:
@@ -404,10 +417,18 @@ def interval(
     return tuple(range(start, stop, step))
 
 
+# def astuple(
+#     a: Union[Integer, Callable],
+#     b: Union[Integer, Callable]
+# ) -> Union[IntegerTuple, Tuple[Callable, Callable]]:
+#     """ constructs a tuple """
+#     return (a, b)
+
+
 def astuple(
-    a: Integer,
-    b: Integer
-) -> IntegerTuple:
+    a: Any,
+    b: Any,
+) -> Tuple[Any, Any]:
     """ constructs a tuple """
     return (a, b)
 
@@ -1027,7 +1048,7 @@ def fill(
 
 def paint(
     grid: Grid,
-    obj: Object
+    obj: Union[Object, Tuple]
 ) -> Grid:
     """ paint object to grid """
     h, w = len(grid), len(grid[0])
