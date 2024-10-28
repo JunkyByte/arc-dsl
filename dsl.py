@@ -211,18 +211,21 @@ def minimum(
     return min(container, default=0)
 
 
+from typing import TypeVar
+T = TypeVar('T')
+
 def valmax(
-    container: Container,
-    compfunc: Callable
-) -> Integer:
+    container: Container[T],
+    compfunc: Callable[[T], bool]
+) -> T:
     """ maximum by custom function """
     return compfunc(max(container, key=compfunc, default=0))
 
 
 def valmin(
-    container: Container,
-    compfunc: Callable
-) -> Integer:
+    container: Container[T],
+    compfunc: Callable[[T], bool]
+) -> T:
     """ minimum by custom function """
     return compfunc(min(container, key=compfunc, default=0))
 
@@ -551,7 +554,7 @@ def mapply(
     container: ContainerContainer
 ) -> FrozenSet:
     """ apply and merge """
-    return merge(apply(function, container))
+    return frozenset(merge(apply(function, container)))
 
 
 def papply(
@@ -938,7 +941,7 @@ def palette(
 
 def numcolors(
     element: Element
-) -> IntegerSet:
+) -> Integer:
     """ number of colors occurring in object or grid """
     return len(palette(element))
 
