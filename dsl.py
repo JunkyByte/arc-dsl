@@ -1,16 +1,20 @@
 from arc_types import *
+from typing import TypeVar
+T = TypeVar('T')
 
 
-# Added special functions
-def SAVE(x):
+def SAVE(x: Any) -> Any:
+    """ This is implemented elsewhere, will never be called, saves last output into variable x """
     raise NotImplementedError
 
 
-def ARGFUNC1(x, y):
+def ARGFUNC1(x: Callable, y: Any) -> Any:
+    """ This is implemented elsewhere, will run x(y) """
     raise NotImplementedError
 
 
-def ARGFUNC2(x, y, z):
+def ARGFUNC2(x: Callable, y: Any, z: Any) -> Any:
+    """ This is implemented elsewhere, will run x(y, z) """
     raise NotImplementedError
 
 
@@ -211,11 +215,8 @@ def minimum(
     return min(container, default=0)
 
 
-from typing import TypeVar
-T = TypeVar('T')
-
 def valmax(
-    container: Container[T],
+    container: Container,
     compfunc: Callable[[T], bool]
 ) -> T:
     """ maximum by custom function """
@@ -223,7 +224,7 @@ def valmax(
 
 
 def valmin(
-    container: Container[T],
+    container: Container,
     compfunc: Callable[[T], bool]
 ) -> T:
     """ minimum by custom function """
@@ -428,7 +429,7 @@ def interval(
 #     return (a, b)
 
 
-def astuple(
+def astuple(  # TODO: Above would be better, is it possible?
     a: Any,
     b: Any,
 ) -> Tuple[Any, Any]:
@@ -576,7 +577,7 @@ def mpapply(
 
 
 def prapply(
-    function,
+    function: Callable,
     a: Container,
     b: Container
 ) -> FrozenSet:
